@@ -4,7 +4,7 @@
 **/
 #include <bits/stdc++.h>
 #ifndef ONLINE_JUDGE
-#include "algo/debug.h"
+#include "../../algo/debug.h"
 #else
 #define debug(...) 42
 #endif
@@ -39,40 +39,38 @@ const int eps = 1e-9;
 
 
 void Ayush() {
-   int n;
+    int n;
     cin >> n;
-    
-    vector<int> arr(n);
-    for(int i = 0; i < n; i++) {
-        cin >> arr[i];
+    vector<int> a(n + 1);
+    input(a);
+    int right = a[n];
+    sort(a.begin(), a.end());
+
+    int total_sum = 0;
+    for (int num : a) {
+        total_sum += num;
     }
-    
-    ll result = 0;
-    int i = 0;
-    while(i < n) {
-        if(arr[i] == 1) {
-            int count = 0;
-            while(i < n && arr[i] == 1) {
-                count++;
-                i++;
-            }
-            
-            result += (1LL * count * (count + 1)) / 2;
+
+    int index = 0;
+    while (index < n + 1) {
+        if (a[index] == right) {
+            break;
         }
-  
-        else {
-            int count = 0;
-            while(i < n && arr[i] == 2) {
-                count++;
-                i++;
-            }
-           
-            result += (1LL * count * (count + 1)) / 2;
+        index++;
+    }
+
+    int i = index;
+    while (i < n) {
+        if (i + 1 < n + 1 && a[i + 1] <= 2 * a[i]) {
+            i++;
+        } else {
+            cout << total_sum - a[i] << endl;
+            return;
         }
     }
-    
-    cout << result << '\n';
+    cout << total_sum - a[n] << endl; 
 }
+
 
 int32_t main() {
     io;
@@ -87,4 +85,3 @@ int32_t main() {
 
     return 0;
 }
-
